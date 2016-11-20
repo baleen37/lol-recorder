@@ -91,3 +91,5 @@ ENV/
 .ropeproject
 
 config.py
+celeryconfig.py
+*.ipnyb

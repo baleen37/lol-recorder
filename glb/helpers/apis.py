@@ -13,7 +13,7 @@ class LoLApi:
         res = requests.get('https://{}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/{}/{}'.format(
             platform.region, platform.name, summoner_id), params = params)
 
-        return json.loads(res.text)
+        return res
 
 
 class SpectatorApi:
@@ -36,7 +36,7 @@ class SpectatorApi:
         res = requests.get((SpectatorApi._PREFIX_URL + '/getLastChunkInfo/{}/{}/0/token').format(
             platform.spectator, platform.name, game_id))
         print("request {} get_last_chunk_info platform : {}, game_id: {}".format(res.ok, platform, game_id))
-        return json.loads(res.text)
+        return res
 
     @classmethod
     def get_chunk_frame(cls, platform, game_id, chunk_id):
@@ -50,4 +50,4 @@ class SpectatorApi:
         res = requests.get((SpectatorApi._PREFIX_URL + '/getKeyFrame/{}/{}/{}/token').format(
             platform.spectator, platform.name, game_id, frame_id))
         print("request {} get_key_frame platform : {}, game_id: {}, frame_id: {}".format(res.ok, platform, game_id, frame_id))
-        return res.text
+        return res
