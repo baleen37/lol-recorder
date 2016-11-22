@@ -1,5 +1,12 @@
+import json
 
-class _Platform:
+
+class JSONSerializable(object):
+    def __repr__(self):
+        return json.dumps(self.__dict__)
+
+class _Platform(json.JSONEncoder):
+
     def __init__(self, name, region, spectator=None):
         self.name = name
         self.region = region
@@ -7,7 +14,10 @@ class _Platform:
 
     def __str__(self):
         return "<_Platform name: {}>".format(self.name)
-    
+
+    def default(self, o):
+        return o.__dict__
+
 
 class Platforms:
     NA1 = _Platform('NA1', 'na', 'spectator.na.lol.riotgames.com')
@@ -22,3 +32,31 @@ class Platforms:
     TR1 = _Platform('TR1', 'tr', 'spectator.tr.lol.riotgames.com')
     PBE1 = _Platform('PRE1', 'pbe', 'spectator.pbe1.lol.riotgames.com:8088')
 
+    _LIST = [
+        NA1,
+        OC1,
+        EUN1,
+        EUW1,
+        KR,
+        BR1,
+        LA1,
+        LA2,
+        RU,
+        TR1,
+        PBE1,
+    ]
+
+
+class ReplayData:
+
+    @classmethod
+    def data_info_key(cls, platform, game_id):
+        return 'replay_data_{}_{}'.format(platform.name, game_id)
+
+    @classmethod
+    def chunk_frame_key(cls, chunk_id):
+        return 'chunk_frame_{}'.format(chunk_id)
+
+    @classmethod
+    def frame_key(cls, key_frame_id):
+        return 'frame_{}'.format(key_frame_id)
