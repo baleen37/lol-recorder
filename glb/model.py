@@ -1,11 +1,7 @@
 import json
+from json import JSONEncoder
 
-
-class JSONSerializable(object):
-    def __repr__(self):
-        return json.dumps(self.__dict__)
-
-class _Platform(json.JSONEncoder):
+class _Platform:
 
     def __init__(self, name, region, spectator=None):
         self.name = name
@@ -17,6 +13,10 @@ class _Platform(json.JSONEncoder):
 
     def default(self, o):
         return o.__dict__
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+                          sort_keys=True, indent=4)
 
 
 class Platforms:
@@ -32,6 +32,18 @@ class Platforms:
     TR1 = _Platform('TR1', 'tr', 'spectator.tr.lol.riotgames.com')
     PBE1 = _Platform('PRE1', 'pbe', 'spectator.pbe1.lol.riotgames.com:8088')
 
+    @classmethod
+    def from_name(cls, name):
+        for p in Platforms._LIST:
+            if p.name == name:
+                return p
+
+    @classmethod
+    def from_regione(cls, region):
+        for p in Platforms._LIST:
+            if p.region == region:
+                return p
+
     _LIST = [
         NA1,
         OC1,
@@ -45,18 +57,3 @@ class Platforms:
         TR1,
         PBE1,
     ]
-
-
-class ReplayData:
-
-    @classmethod
-    def data_info_key(cls, platform, game_id):
-        return 'replay_data_{}_{}'.format(platform.name, game_id)
-
-    @classmethod
-    def chunk_frame_key(cls, chunk_id):
-        return 'chunk_frame_{}'.format(chunk_id)
-
-    @classmethod
-    def frame_key(cls, key_frame_id):
-        return 'frame_{}'.format(key_frame_id)
