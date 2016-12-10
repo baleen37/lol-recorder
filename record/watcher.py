@@ -12,7 +12,7 @@ def is_playing_game(platform, summoner_id):
     '''
     플레이 여부체크
     '''
-    res = LoLApi().current_game_info(summoner_id, platform)
+    res = LoLApi().current_game_info(platform, summoner_id)
 
     if not res.ok:
         return False, 'is not playing game'

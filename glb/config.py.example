@@ -1,0 +1,9 @@
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6397'
+REDIS_DB = '0'
+
+LOL_API_KEY = ''
+
+PLAYERS = [
+    ('17140249', 'kr')
+]

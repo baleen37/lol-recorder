@@ -8,7 +8,7 @@ class LoLApi:
     def __init__(self, api_key=None):
         self.api_key = api_key or config.LOL_API_KEY
 
-    def current_game_info(self, summoner_id, platform):
+    def current_game_info(self, platform, summoner_id):
         params = { 'api_key' : self.api_key }
         res = requests.get('https://{}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/{}/{}'.format(
             platform.region, platform.name, summoner_id), params = params)

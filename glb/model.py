@@ -39,7 +39,7 @@ class Platforms:
                 return p
 
     @classmethod
-    def from_regione(cls, region):
+    def from_region(cls, region):
         for p in Platforms._LIST:
             if p.region == region:
                 return p
