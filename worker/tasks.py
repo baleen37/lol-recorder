@@ -18,10 +18,12 @@ def track_summoners():
 
         # is not playing summoner
         if not ok:
-            return
+            continue
         game_id = res['gameId']
+        encryption_key = res['observers']['encryptionKey']
 
         sc = StoreController(platform, game_id)
+        sc.set_encryption_key(encryption_key)
         if not sc.version():
             record_replay(platform, game_id)
 

@@ -136,6 +136,7 @@ def record(platform, game_id):
         }
 
         first_chunk_data = customChunkInfo
+        sc.set_first_chunk(first_chunk_data)
 
         customChunkInfo['nextChunkId'] = chunk['chunkId'] - 1
         customChunkInfo['chunkId'] = chunk['chunkId']
@@ -148,7 +149,6 @@ def record(platform, game_id):
             print('the game is over {}'.format(game_id))
             break
 
-        sc.set_first_chunk(first_chunk_data)
         sc.set_last_chunk(last_chunk_data)
 
         next_time = int(chunk["nextAvailableChunk"]) / 1000 + 1

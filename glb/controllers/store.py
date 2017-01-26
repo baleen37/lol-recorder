@@ -21,6 +21,12 @@ class StoreController:
     def version(self):
         return redis.hget(self.redis_key, 'version')
 
+    def set_encryption_key(self, encryption_key):
+        return redis.hset(self.redis_key, 'encryption_key', encryption_key)
+
+    def encryption_key(self):
+        return redis.hget(self.redis_key, 'encryption_key')
+
     def set_meta_data(self, value):
         return redis.hset(self.redis_key, 'meta_data', value)
 
